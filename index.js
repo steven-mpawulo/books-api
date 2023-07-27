@@ -57,17 +57,32 @@ app.get('/books/:id', (req, res) => {
 // add a new book
 app.post('/books', (req, res) => {
     const body = req.body;
-    if(body !== null){
-        const booksLength = books.length;
-        let id = booksLength + 1;
-        console.log(body);
-        newBody = {...body, id};
-        books = {...books, ...newBody};
-        console.log(books);
-        res.status(201).send(newBody);
+    if(Object.keys(body).length === 0){
+        res.status(401).end();
+        console.log("Am here");
     } else {
-        res.status(403);
+       let booksLength = books.length;
+       console.log(booksLength);
+       console.log(body);
+       let id = booksLength + 1;
+       let newBody = {id, ...body}
+       books = books.concat(newBody);
+       console.log(books);
+       res.status(200).json(newBody);
     }
+
+});
+
+// delete a book 
+app.delete('/books/:id', (req, res) => {
+    const id = req.params.id;
+    books = books.filter((book) => {
+        return book.id !== id;
+    });
+
+    console.log(books);
+    res.json(books);
+
 
 });
 
