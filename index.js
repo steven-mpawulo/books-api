@@ -51,12 +51,24 @@ app.get('/books/:id', (req, res) => {
         res.json(book);
     } else {
         res.status(204).end();
-    }
+    }    
+});
 
 // add a new book
-app.post('/books')
+app.post('/books', (req, res) => {
+    const body = req.body;
+    if(body !== null){
+        const booksLength = books.length;
+        let id = booksLength + 1;
+        console.log(body);
+        newBody = {...body, id};
+        books = {...books, ...newBody};
+        console.log(books);
+        res.status(201).send(newBody);
+    } else {
+        res.status(403);
+    }
 
-    
 });
 
 const Port = 3001;
