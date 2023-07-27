@@ -35,8 +35,28 @@ let books = [
     },
 ];
 // return all books
-app.get('/', (req, res) => {
+app.get('/books', (req, res) => {
     res.json(books);
+});
+
+// return only a single book
+app.get('/books/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    console.log(id);
+    const book = books.find((book)=> {
+        return book.id === id;
+    });
+    console.log(book);
+    if (book){
+        res.json(book);
+    } else {
+        res.status(204).end();
+    }
+
+// add a new book
+app.post('/books')
+
+    
 });
 
 const Port = 3001;
