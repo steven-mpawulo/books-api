@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.use(express.json());
 
 let books = [
     {
@@ -33,9 +34,9 @@ let books = [
         publisher: "DR Ltd"
     },
 ];
-
+// return all books
 app.get('/', (req, res) => {
-    res.send('Hello world')
+    res.json(books);
 });
 
 const Port = 3001;
