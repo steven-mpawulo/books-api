@@ -85,6 +85,23 @@ app.delete('/books/:id', (req, res) => {
 
 });
 
+// update info of a certain book
+app.patch('/books/:id', (req,res) => {
+    const body = req.body;
+    const id = Number(req.params.id);
+    let bookIndex = books.findIndex((book) => {
+        return book.id === id
+    });
+    console.log(bookIndex);
+    console.log(books[bookIndex]);
+    books[bookIndex].title = body.title;
+    books[bookIndex].author = body.author;
+    books[bookIndex].publisher = body.publisher;
+    console.log(books[bookIndex]);
+    res.json(books[bookIndex]);
+   
+    });
+
 const Port = 3001;
 app.listen(Port, () => {
     console.log("Started server at port:", Port);
