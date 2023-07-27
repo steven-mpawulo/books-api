@@ -75,13 +75,12 @@ app.post('/books', (req, res) => {
 
 // delete a book 
 app.delete('/books/:id', (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     books = books.filter((book) => {
         return book.id !== id;
     });
 
-    console.log(books);
-    res.json(books);
+    res.status(204).end();
 
 
 });
